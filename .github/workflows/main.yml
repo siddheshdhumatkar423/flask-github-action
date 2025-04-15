@@ -1,4 +1,4 @@
-ame: Generate Terraform Docs
+name: Generate Terraform Docs
 #on:
 #  push:
 #    branches: [ "master" ]
