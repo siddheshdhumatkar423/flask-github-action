@@ -1,6 +1,10 @@
 terraform {
- backend "gcs" {
-   bucket  = "gh-demo-tf-state"
-   prefix  = "terraform/state"
- }
+  backend "s3" {
+    bucket         = "your-terraform-state-bucket"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-lock-table"
+  }
 }
+
