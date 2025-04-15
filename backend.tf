@@ -1,9 +1,27 @@
-terraform {
-  backend "s3" {
-    bucket         = "your-terraform-state-bucket123456"        # ✅ Replace with your actual S3 bucket name
-    key            = "global/s3/terraform.tfstate"         # Path within the bucket to store the state file
-    region         = "us-east-1"                           # ✅ Your AWS region
-    encrypt        = true                                  # Enable SSE encryption at rest
-            
+# s3-backend.tf
+
+provider "aws" {
+  region = "us-east-1"  # Change to your desired region
+}
+
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "my-terraform-state-bucket-1234"  # Change to a globally unique name
+
+  versioning {
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  tags = {
+    Name        = "Terraform State Bucket"
+    Environment = "dev"
   }
 }
+
