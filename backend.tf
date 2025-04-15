@@ -1,5 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "your-terraform-state-bucket"     # ✅ Replace with your S3 bucket name
-                                 
+    bucket = "my-terraform-state-bucket123456"   # 🔁 Replace with your actual S3 bucket name
+    key    = "env/dev/terraform.tfstate"   # 📁 Path to state file inside the bucket
+    region = "us-east-1"                   # 🌍 Your AWS region
+    encrypt = true                         # 🔒 Encrypt state file at rest
+  }
 }
