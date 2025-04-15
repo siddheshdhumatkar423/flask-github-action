@@ -1,4 +1,4 @@
-name: Testing Workflow Variables
+name: Testing configuration Variables
 
 on:
   workflow_dispatch
@@ -12,7 +12,7 @@ jobs:
     env:
       Greeting: Hello
     steps:
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name is using $cloud!"
+      - name: "Say Hello to Vishal"
+        run: echo "$Greeting $First_Name is using $cloud with project ${{ vars.PROJECT_ID }}!"
         env:
           First_Name: Vishal
