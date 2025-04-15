@@ -2,7 +2,7 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
 jobs:
   terraform:
     name: 'Terraform'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
 
     defaults:
@@ -22,7 +22,7 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
-      uses: actions/checkout@v3
+    uses: actions/checkout@v3
 
     - id: auth
       uses: google-github-actions/auth@v2.0.0  
@@ -40,8 +40,7 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-
-
+      
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
@@ -49,5 +48,7 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
+
+
 
 
