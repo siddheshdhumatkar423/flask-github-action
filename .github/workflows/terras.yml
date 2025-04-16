@@ -2,52 +2,49 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
+    branches: [ "main" ]
+  
 
 permissions:
-  contents: read
-  id-token: 'write'
+  repository-projects: write
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  
 
 jobs:
+  
   terraform:
     name: 'Terraform'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
-
-    defaults:
-      run:
-        shell: bash
+   
 
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
 
-    - id: auth
-      uses: google-github-actions/auth@v2.0.0  
-      with:
-        workload_identity_provider: 'projects/657207815175/locations/global/workloadIdentityPools/github-demo-pool/providers/github'
-        service_account: 'github-wif@tt-dev-001.iam.gserviceaccount.com'
-
-
-          
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
 
 
     # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -input=false
+    #- name: Terraform Plan
+     # run: terraform plan -input=false
 
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false
+      # On push to "main", build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    #- name: Terraform Apply
+     # run: terraform apply -auto-approve -input=false
 
 
