@@ -1,8 +1,6 @@
 terraform {
-  backend "remote" {
-    organization = "TechTrapture"
-    workspaces {
-      name = "test-tfc-demo"
-    }
-  }
+ backend "gcs" {
+   bucket  = "gh-demo-tf-state"
+   prefix  = "terraform/state"
+ }
 }
