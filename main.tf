@@ -1,13 +1,7 @@
-provider "aws" {
-  region = var.aws_region
+resource "google_storage_bucket" "my-bucket" {
+  name          = "bkt-demo-000"
+  location      = "us-central1"
+  project = "tt-dev-001"
+  force_destroy = true
+  public_access_prevention = "enforced"
 }
-
-resource "aws_instance" "example" {
-  ami           = "ami-0c02fb55956c7d316"  # Amazon Linux 2 AMI (example)
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "GitHubActionsInstance"
-  }
-}
-
